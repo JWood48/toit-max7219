@@ -9,12 +9,12 @@ Inspired by https://github.com/squix78/MAX7219LedMatrix
 
 ## Connection to esp32
 
-MAX7219 Pins:
+A typical MAX7219 connection would look as follows:
 ```
 VCC -> 3v3
 GND -> GND
 DIN -> 13 (MOSI)
-CS -> 15 
+CS -> 15
 CLK -> 14 (CLOCK)
 ```
 
@@ -28,35 +28,35 @@ import spi
 import max7219 show *
 
 main:
-    bus ::= spi.Bus 
-                  //--miso=gpio.Pin 12 // not neede for MAX7219
-                  --mosi=gpio.Pin 13 --output // MAX7219 - DIN
-                  --clock=gpio.Pin 14 --output // MAX7219 - CLK
+    bus ::= spi.Bus
+        //--miso=gpio.Pin 12 // Not needed for MAX7219.
+        --mosi=gpio.Pin 13  // MAX7219 - DIN
+        --clock=gpio.Pin 14 // MAX7219 - CLK
 
     device ::= bus.device
-                   --cs=gpio.Pin 15 --output // MAX7219 - CS
-                   --frequency=10_000_000
+        --cs=gpio.Pin 15 // MAX7219 - CS
+        --frequency=10_000_000
 
 
-    max7219 := Max7219 
-                    device // the device the MAX7219 is attached to
-                    3 // number of chained panels
-                    --reverse=true // reverse panel ordering
-                    --rotate=1  // Rotate all displays by 1 * 90 degrees
+    max7219 := Max7219
+        device // The device the MAX7219 is attached to.
+        3 // Number of chained panels.
+        --reverse   // Reverse panel ordering.
+        --rotate=1  // Rotate all displays by 1 * 90 degrees
 
-    // start device
+    // Start device.
     max7219.on
 
-    // draw arrows
+    // Draw arrows.
     max7219.drawArrow 0
     max7219.drawArrow 1 --direction=DOWN
     max7219.drawArrow 2 --direction=UP
     sleep --ms=1000
 
-    // draw characters
+    // Draw characters.
     100.repeat:
-        max7219.drawChar 2 it
-        sleep --ms=500
+      max7219.drawChar 2 it
+      sleep --ms=500
 ```
 
 See the `examples` folder for more examples.
