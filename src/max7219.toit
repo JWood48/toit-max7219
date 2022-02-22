@@ -1,3 +1,12 @@
+/* 
+  Copyright 2022
+  @Author Jakob Skov
+
+  You may not use this file except in compliance with the License.
+  Unless required by applicable law or agreed to in writing, software distributed under the License 
+  is distrubuted on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*/
+
 import math
 import serial.protocols.spi as spi
 import .font
@@ -65,6 +74,7 @@ class Max7219:
   */
   off:
     panels_.repeat:
+      clear it
       shutdown it true
 
   check_addr_ addr/int:
