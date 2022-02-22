@@ -1,0 +1,5 @@
+prefixes:
+  max7219: ..
+packages:
+  ..:
+    path: ..
