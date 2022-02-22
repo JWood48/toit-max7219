@@ -1,9 +1,9 @@
 # MAX7219
-Driver for the MAX7219  8x8 matrix display
+Driver for the MAX7219 8x8 matrix display
 
 See https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf
 
-It works over SPI, and up to 8 8x8 displays can be chained
+It works over SPI, and up to 8 panels can be chained
 
 Inspired by https://github.com/squix78/MAX7219LedMatrix
 

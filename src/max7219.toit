@@ -4,6 +4,8 @@ import .font
 import .utils
 import .icons
 
+export rotate
+
 RIGHT ::= 0
 DOWN ::= 1
 LEFT ::= 2

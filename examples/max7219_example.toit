@@ -37,6 +37,20 @@ main:
     max7219.drawArrow 2 --direction=UP
     sleep --ms=1000
 
+    // create an icon showing an X by setting bits to 1 in a bytearray of size 8
+    cross_icon := rotate #[
+        0b10000001,
+        0b01000010,
+        0b00100100,
+        0b00011000,
+        0b00011000,
+        0b00100100,
+        0b01000010,
+        0b10000001,
+        ]
+
+    max7219.drawIcon 0 cross_icon
+
     // draw characters
     100.repeat:
         max7219.drawChar 2 it
