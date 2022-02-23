@@ -11,6 +11,7 @@ import gpio
 import spi
 import max7219 show *
 
+
 /*
 MAX7219 Pins:
 VCC -> 3v3

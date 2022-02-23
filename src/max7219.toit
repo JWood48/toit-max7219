@@ -13,6 +13,9 @@ import .font
 import .utils
 import .icons
 
+import pixel_display.two_color show *
+import pixel_display show *
+
 export rotate
 
 RIGHT ::= 0
@@ -20,12 +23,13 @@ DOWN ::= 1
 LEFT ::= 2
 UP ::= 3
 
+
 /**
 Driver for the MAX7219 8x8 matrix display.
 
 https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf
 */
-class Max7219:
+class Max7219 extends AbstractDriver:
 
   static MAX7219_TEST ::= 0x0f
   static MAX7219_BRIGHTNESS ::= 0x0a
@@ -39,6 +43,12 @@ class Max7219:
   spidata_/ByteArray
   rotate_/int
   reverse_/bool
+
+  
+  width/int
+  height/int ::= 8
+  flags/int ::= FLAG_2_COLOR
+
 
   /**
   Constructs the driver with the given spi device and $panel_count panels chained.
@@ -57,6 +67,8 @@ class Max7219:
         panelIndex_[panels_ - 1 - it] = it
       else:
         panelIndex_[it] = it
+    width = panel_count * 8
+    
 
   /**
   Starts the MAX7219 device.
@@ -173,3 +185,8 @@ class Max7219:
     max_transfer_all_ MAX7219_TEST 0X01
     sleep --ms=2000
     max_transfer_all_ MAX7219_TEST 0X00
+
+
+  
+  draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+

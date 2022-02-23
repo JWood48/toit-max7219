@@ -1,2 +1,6 @@
 name: max7219
 description: Driver for the MAX7219 8x8 matrix display.
+dependencies:
+  pixel_display:
+    url: github.com/toitware/toit-pixel-display
+    version: ^1.5.0
