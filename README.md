@@ -19,14 +19,11 @@ CLK -> 14 (CLOCK)
 ```
 
 
-## Usage
+## Usage RAW
 A simple usage example.
 
+See the full example in the examples folder!
 ``` toit
-import gpio
-import spi
-import max7219 show *
-
 main:
     bus ::= spi.Bus
         //--miso=gpio.Pin 12 // Not needed for MAX7219.
@@ -60,6 +57,56 @@ main:
 ```
 
 See the `examples` folder for more examples.
+
+## Usage pixel display
+Use the MAX7219 as a pixel display: https://docs.toit.io/language/sdk/display
+
+See the full example in the examples folder!
+```
+main:
+  bus ::= spi.Bus
+      //--miso=gpio.Pin 12 // not neede for MAX7219
+      --mosi=gpio.Pin 13   // MAX7219 - DIN
+      --clock=gpio.Pin 14  // MAX7219 - CLK
+
+  device ::= bus.device
+      --cs=gpio.Pin 15     // MAX7219 - CS
+      --frequency=10_000_000
+
+
+  max7219 := Max7219
+      device // The device the MAX7219 is attached to.
+      3 // Number of chained panels.
+      --reverse   // Reverse panel ordering.
+      --rotate=1  // Rotate all displays by 1 * 90 degrees.
+
+  // Start device.
+  
+  display := TwoColorPixelDisplay max7219
+
+  max7219.on
+  
+  display.background = WHITE
+
+  font := Font [three_by_five.ASCII,
+                three_by_five.LATIN_1_SUPPLEMENT]
+
+  context := display.context 
+              //--inverted 
+              --landscape
+              --font=font
+              --color=BLACK
+
+  y := 6
+  time := display.text context -1 7 "!\"#\$%&/~ .,:;-+° @ [] () {} Error 0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ .,:;-+°"
+
+  x := 16
+  while true:
+    time.move_to x 7
+    x--
+    display.draw
+    sleep --ms=200
+```
 
 ## Features and bugs
 
