@@ -114,6 +114,13 @@ class Max7219 extends AbstractDriver:
     8.repeat:
       max_transfer_ addr it+1 bytes[it]
 
+
+  /**
+  Sends a shutdown signal to all panels.
+  */
+  shutdown_all b/bool:
+    panels_.repeat:
+      shutdown it b
   /**
   Sends a shutdown signal to the panel with the given $address.
   */
@@ -121,6 +128,14 @@ class Max7219 extends AbstractDriver:
     if check_addr_ address:
       max_transfer_ address MAX7219_SHUTDOWN (b ? 0x0 : 0x1)
 
+
+  /**
+  Sets a scan $limit on all panels.
+  The $limit must satisfy 0 <= $limit < 8.
+  */
+  scanlimit_all limit/int:
+    panels_.repeat:
+      scanlimit it limit
   /**
   Sets a scan $limit on the panel with the given $address.
   The $limit must satisfy 0 <= $limit < 8.
@@ -129,6 +144,13 @@ class Max7219 extends AbstractDriver:
     if check_addr_ address and 0 <= limit < 8:
       max_transfer_ address MAX7219_SCAN_LIMIT limit
 
+   /**
+  Set the $brightness of the panel with the given $address.
+  The $brightness value must satisfy 0 <= $brightness <= 15.
+  */
+  brightness_all brightness_value/int:
+    panels_.repeat:
+      brightness it brightness_value
   /**
   Set the $brightness of the panel with the given $address.
   The $brightness value must satisfy 0 <= $brightness <= 15.
@@ -137,6 +159,13 @@ class Max7219 extends AbstractDriver:
     if check_addr_ address and 0 <= brightness < 16:
       max_transfer_ address MAX7219_BRIGHTNESS brightness
 
+
+  /**
+  Clears the panel with the given $address.
+  */
+  clear_all:
+    panels_.repeat:
+      clear it
   /**
   Clears the panel with the given $address.
   */
@@ -185,8 +214,27 @@ class Max7219 extends AbstractDriver:
     max_transfer_all_ MAX7219_TEST 0X01
     sleep --ms=2000
     max_transfer_all_ MAX7219_TEST 0X00
-
+  
+  /**
+  Identify current panels by writing the panel index on each panel.
+  */
+  identify:
+    panels_.repeat:
+      draw_char it "$it"[0]
 
   
   draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+    // debug
+    // print "left: $left, top: $top, right: $right, bottom: $bottom, pixels: $pixels"
+    // pixels.size.repeat:
+    //   b := pixels[it]
+    //   s := ""
+    //   8.repeat:
+    //     s = "$((b >> it) & 0b1)$s"
+    //   print "B $(s)"
+
+    // for each panel write pixel segments
+    panels_.repeat:
+      draw_byte_array_ it pixels[it*8..it*8+8]
+        
 

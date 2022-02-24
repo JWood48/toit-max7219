@@ -1,11 +1,18 @@
 prefixes:
-  pixel_display: toit-pixel-display
+  font_clock: toit-font-clock
   max7219: ..
+  pixel_display: toit-pixel-display
 packages:
   ..:
     path: ..
     prefixes:
       pixel_display: toit-pixel-display
+      font_clock: toit-font-clock
+  toit-font-clock:
+    url: github.com/toitware/toit-font-clock
+    version: 1.2.0
+    hash: e1bdd48fb2e028927560bd68fb611ed250b1df1b
   toit-pixel-display:
     url: github.com/toitware/toit-pixel-display
     version: 1.5.0
+    hash: 359a4a5734b350f032cf81b971e5a065c73f6588

@@ -11,6 +11,12 @@ import gpio
 import spi
 import max7219 show *
 
+import font show Font
+import font_clock.three_by_five
+import pixel_display show *
+import pixel_display.texture show *
+import pixel_display.two_color show *
+
 /*
 MAX7219 Pins:
 VCC -> 3v3
@@ -38,29 +44,28 @@ main:
       --rotate=1  // Rotate all displays by 1 * 90 degrees.
 
   // Start device.
+  
+  display := TwoColorPixelDisplay max7219
+
   max7219.on
+  
+  display.background = WHITE
 
-  // Draw arrows.
-  max7219.draw_arrow 0
-  max7219.draw_arrow 1 --direction=DOWN
-  max7219.draw_arrow 2 --direction=UP
-  sleep --ms=1000
+  font := Font [three_by_five.ASCII,
+                three_by_five.LATIN_1_SUPPLEMENT]
 
-  // Create an icon showing an X by setting bits to 1 in a bytearray of size 8.
-  cross_icon := rotate #[
-    0b10000001,
-    0b01000010,
-    0b00100100,
-    0b00011000,
-    0b00011000,
-    0b00100100,
-    0b01000010,
-    0b10000001,
-  ]
+  context := display.context 
+              //--inverted 
+              --landscape
+              --font=font
+              --color=BLACK
 
-  max7219.draw_icon 0 cross_icon
+  y := 6
+  time := display.text context -1 7 "!\"#\$%&/~ .,:;-+° @ [] () {} Error 0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ .,:;-+°"
 
-  // Draw characters.
-  100.repeat:
-    max7219.draw_char 2 it
-    sleep --ms=500
+  x := 16
+  while true:
+    time.move_to x 7
+    x--
+    display.draw
+    sleep --ms=200

@@ -19,7 +19,7 @@ CLK -> 14 (CLOCK)
 ```
 
 
-## Usage RAW
+## Usage direct
 A simple usage example.
 
 See the full example in the examples folder!
