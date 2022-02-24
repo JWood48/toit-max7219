@@ -7,6 +7,8 @@ It works over SPI, and up to 8 panels can be chained.
 
 Inspired by https://github.com/squix78/MAX7219LedMatrix
 
+**NEW:** The Max7219 class can now be used as a driver for the pixel display: https://docs.toit.io/language/sdk/display
+
 ## Connection to esp32
 
 A typical MAX7219 connection would look as follows:
