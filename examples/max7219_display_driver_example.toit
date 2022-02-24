@@ -43,12 +43,13 @@ main:
       --reverse   // Reverse panel ordering.
       --rotate=1  // Rotate all displays by 1 * 90 degrees.
 
-  // Start device.
-  
+
+  // Add the max7219 as a driver for a TwoColorPixelDisplay
   display := TwoColorPixelDisplay max7219
 
+  // Start device.
   max7219.on
-  
+
   display.background = WHITE
 
   font := Font [three_by_five.ASCII,
