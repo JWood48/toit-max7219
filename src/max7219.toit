@@ -8,7 +8,7 @@
 */
 
 import math
-import serial.protocols.spi as spi
+import spi
 import .font
 import .utils
 import .icons

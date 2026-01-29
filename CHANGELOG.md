@@ -1,3 +1,5 @@
+## 1.2.0 - 2026-01-29
+* Updated package versions
 ## 1.1.0 - 2022-02-22
 * Added support for pixel_display - the Max7219 class can now be used as an driver for a TwoColorPixelDisplay
 * added _all versions of brightness, scanlimit, clear and shutdown
